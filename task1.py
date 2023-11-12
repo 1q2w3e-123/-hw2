@@ -175,15 +175,15 @@ def draw_curve(x1,y1,name,popt):
     plt.savefig('tuning_curve/'+name+'.png')
     plt.clf()
 
-# l=[]
-# t=target[0]
-# last_i=0
-# for i in range(len(l_time)):
-#     if target[i][0]!=target[last_i][0] or target[i][1]!=target[last_i][1]:
-#         l.append(l_time[i]-l_time[last_i])
-#         last_i=i
-# l.sort(reverse=True)
-# print(l)
+l=[]
+t=target[0]
+last_i=0
+for i in range(len(l_time)):
+    if target[i][0]!=target[last_i][0] or target[i][1]!=target[last_i][1]:
+        l.append(l_time[i]-l_time[last_i])
+        last_i=i
+l.sort(reverse=True)
+print(l)
 
 def func(x,a,c,d):
     return a*np.cos(x+c)+d
@@ -198,37 +198,37 @@ for i in range(len(l_time)):
         dct['cell']=[]
         event[str(target[i])]=dct
 all_data=process()
-# fire_rate={}
-# curve={}
+fire_rate={}
+curve={}
 
-# for i in all_data.keys():
-#     if len(i)>1:
-#         continue
-#     fire_rate[i]=[]
-#     curve[i]=[]
-#     for j in  valid_directions:
-#         fire_rate[i].append(len(all_data[i][j])*2)
-#     a0 = (max(fire_rate[i])-min(fire_rate[i]))/2
-#     p0 = [a0,0,0]
-#     popt, pcov = curve_fit(func, cos_x, fire_rate[i])
-#     curve[i]=popt.tolist()
-#     draw_curve(cos_x,fire_rate[i],i,popt)
+for i in all_data.keys():
+    if len(i)>1:
+        continue
+    fire_rate[i]=[]
+    curve[i]=[]
+    for j in  valid_directions:
+        fire_rate[i].append(len(all_data[i][j])*2)
+    a0 = (max(fire_rate[i])-min(fire_rate[i]))/2
+    p0 = [a0,0,0]
+    popt, pcov = curve_fit(func, cos_x, fire_rate[i])
+    curve[i]=popt.tolist()
+    draw_curve(cos_x,fire_rate[i],i,popt)
 
-# compu_vel()
-# compu_acc()
+compu_vel()
+compu_acc()
 with open('all_data.txt','w') as f:
     f.write(str(all_data))
-# with open('fire_rate.txt','w') as f:
-#     f.write(str(fire_rate))
-# with open('curve.txt','w') as f:
-#     f.write(str(curve))
-# with open('vel.txt','w') as f:
-#     f.write(str(vel))
-# with open('vel_time.txt','w') as f:
-#     f.write(str(vel_time)) 
-# with open('acc.txt','w') as f:
-#     f.write(str(acc)) 
-# for i in all_data.keys():
-#     for j in valid_directions:
-#         draw(i,j,all_data[i][j])
-#         draw_psth(i,j,all_data[i][j])
+with open('fire_rate.txt','w') as f:
+    f.write(str(fire_rate))
+with open('curve.txt','w') as f:
+    f.write(str(curve))
+with open('vel.txt','w') as f:
+    f.write(str(vel))
+with open('vel_time.txt','w') as f:
+    f.write(str(vel_time)) 
+with open('acc.txt','w') as f:
+    f.write(str(acc)) 
+for i in all_data.keys():
+    for j in valid_directions:
+        draw(i,j,all_data[i][j])
+        draw_psth(i,j,all_data[i][j])
