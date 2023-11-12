@@ -1,0 +1,10 @@
+*.png
+*.mat
+*.txt
+*.pdf
+test/
+psth/
+raster/
+speed/
+tuning_curve/
+R2/
